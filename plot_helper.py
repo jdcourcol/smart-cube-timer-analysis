@@ -1,12 +1,9 @@
 def add_rolling(df, n):
     sn = str(n)
-    df['time' + sn] = df['time'].rolling(n).mean()
-    df['f2l' + sn] = df['f2l'].rolling(n).mean()
-    df['pllTime' + sn] = df['_pllTime'].rolling(n).mean()
-    df['ollTime' + sn] = df['_ollTime'].rolling(n).mean()
-    df['f2l' + sn + 'N'] = df['f2l' + sn] / df['time' + sn]
-    df['pllTime' + sn + 'N'] = df['pllTime' + sn] / df['time' + sn]
-    df['ollTime' + sn + 'N'] = df['ollTime' + sn] / df['time' + sn]
+    for c in ['time', 'f2l', '_pllTime', '_ollTime']:
+        c_rolling = c.strip('_') + sn
+        df [c_rolling] = df[c].rolling(n).mean()
+        df [c_rolling + 'N'] = df[c_rolling] / df ['time' + sn]
 
 
 def plot_rolling(df, n):
